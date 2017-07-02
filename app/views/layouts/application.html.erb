@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Instatest</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if session[:access_token].nil? %>
+      <a href="/oauth/connect">Connect with Instagram</a>
+    <% elsif @recent_pics.any? %>
+    <% @recent_pics.each do |pic| %>
+      <%= image_tag pic.images.thumbnail.url class: "instagram_image" %>
+    <% end %>
+    <% end %>
+     <!-- <a href="<%= "https://api.instagram.com/oauth/authorize/?client_id=9104499421d54fd6bf4560ff2817f12d&redirect_uri=#{'http://localhost:3000/oauth/callback'}&response_type=token" %>">Connect with Instagram</a> -->
+    <%= yield %>
+  </body>
+</html>

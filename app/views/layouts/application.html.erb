@@ -11,7 +11,7 @@
   <body>
     <% if session[:access_token].nil? %>
       <a href="/oauth/connect">Connect with Instagram</a>
-    <% elsif @recent_pics.any? %>
+    <% elsif @recent_pics %>
     <% @recent_pics.each do |pic| %>
       <%= image_tag pic.images.thumbnail.url class: "instagram_image" %>
     <% end %>

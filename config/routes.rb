@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'dashboard#index'
+  root 'main#home'
+  get "dashboard", to: 'dashboard#index'
   get "oauth/connect", to: 'dashboard#instagram_connect'
   match "oauth/callback", to: 'dashboard#instagram_callback', via: [:get, :post]
 

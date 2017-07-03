@@ -5,13 +5,21 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'simple_form', '~> 3.5'
+
+gem 'devise', '~> 4.3'
+
+gem 'paperclip', '~> 5.1'
+
 gem 'jquery-rails'
 
 gem 'hirb'
 
-gem 'bcrypt',         '3.1.11'
+gem 'masonry-rails', '~> 0.2.4'
 
-gem 'bootstrap-sass', '3.3.7'
+gem 'acts_as_votable', '~> 0.10.0'
+
+gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'instagram'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -54,7 +62,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  # gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 

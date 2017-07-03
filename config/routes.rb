@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
-  root 'main#home'
+
+  root "pins#index"
+ devise_for :users
+ resources :pins do
+   member do
+   put "like", to: "pins#upvote"
+   end
+ end
+
+  # root 'main#home'
   get "dashboard", to: 'dashboard#index'
   get "oauth/connect", to: 'dashboard#instagram_connect'
   match "oauth/callback", to: 'dashboard#instagram_callback', via: [:get, :post]

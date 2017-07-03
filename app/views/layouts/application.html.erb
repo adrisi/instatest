@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Instatest</title>
+    <title>Sic Pic</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,41 @@
   </head>
 
   <body>
+
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-brand">
+        <%= link_to "Sic Pic" , root_path %>
+        <% if user_signed_in? %>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= link_to "New Pic", new_pin_path %>
+            </li>
+            <li>
+              <%= link_to "Account", edit_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "Dashboard"%>
+            </li>
+            <li>
+              <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+            </li>
+          </ul>
+        <% else %>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= link_to "Sign Up", new_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "Sign In", new_user_session_path %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+
+  <div class="">
     <% if session[:access_token].nil? %>
       <a href="/oauth/connect">Connect with Instagram</a>
     <% elsif @recent_pics %>
@@ -16,7 +51,14 @@
       <%= image_tag pic.images.thumbnail.url class: "instagram_image" %>
     <% end %>
     <% end %>
-     <!-- <a href="<%= "https://api.instagram.com/oauth/authorize/?client_id=9104499421d54fd6bf4560ff2817f12d&redirect_uri=#{'http://localhost:3000/oauth/callback'}&response_type=token" %>">Connect with Instagram</a> -->
+  </div>
+
+<div class="container">
+    <% flash.each do |name,msg| %>
+    <%= content_tag(:div,msg,class: "alert alert-info") %>
+    <% end %>
     <%= yield %>
+</div>
+
   </body>
 </html>

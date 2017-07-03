@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
 
-  root "pins#index"
+  # root "pins#index"
+
+
  devise_for :users
+ # root 'devise/sessions#create'
+
+ devise_scope :user do
+   get "/" => "devise/sessions#create"
+ end
+
  resources :pins do
    member do
    put "like", to: "pins#upvote"

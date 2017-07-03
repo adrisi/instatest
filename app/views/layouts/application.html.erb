@@ -13,7 +13,8 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-brand">
-        <%= link_to "Sic Pic" , root_path %>
+        <%= link_to "Sic" , user_session_path %>
+        </div>
         <% if user_signed_in? %>
           <ul class="nav navbar-nav navbar-right">
             <li>
@@ -23,7 +24,7 @@
               <%= link_to "Account", edit_user_registration_path %>
             </li>
             <li>
-              <%= link_to "Dashboard"%>
+              <%= link_to "Dashboard", dashboard_path %>
             </li>
             <li>
               <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
@@ -39,13 +40,13 @@
             </li>
           </ul>
         <% end %>
-      </div>
+
     </div>
   </nav>
 
   <div class="">
     <% if session[:access_token].nil? %>
-      <a href="/oauth/connect">Connect with Instagram</a>
+
     <% elsif @recent_pics %>
     <% @recent_pics.each do |pic| %>
       <%= image_tag pic.images.thumbnail.url class: "instagram_image" %>

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
    end
  end
 
-  # root 'main#home'
+  get "users/account", to: "pins#index"
   get "dashboard", to: 'dashboard#index'
   get "oauth/connect", to: 'dashboard#instagram_connect'
   match "oauth/callback", to: 'dashboard#instagram_callback', via: [:get, :post]

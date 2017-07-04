@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Sic Pic</title>
-    <%= csrf_meta_tags %>
+ <head>
+   <title>SicPic</title>
+   <%= csrf_meta_tags %>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <%= stylesheet_link_tag   'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+ </head>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+ <body>
 
-  <body>
-
-  <nav class="navbar navbar-default">
-    <div class="container">
-      <div class="navbar-brand">
-        <%= link_to "Sic" , user_session_path %>
-        </div>
-        <% if user_signed_in? %>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <%= link_to "New Pic", new_pin_path %>
-            </li>
-            <li>
-              <%= link_to "Account", edit_user_registration_path %>
-            </li>
-            <li>
-              <%= link_to "Dashboard", dashboard_path %>
-            </li>
-            <li>
-              <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-            </li>
-          </ul>
-        <% else %>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <%= link_to "Sign Up", new_user_registration_path %>
-            </li>
-            <li>
-              <%= link_to "Sign In", new_user_session_path %>
-            </li>
-          </ul>
-        <% end %>
-
+   <% if user_signed_in? %>
+   <nav class="navbar navbar-default navbar-fixed-top">
+   <div id="container-nav" class="container">
+     <div class="navbar-brand">
+       <%= link_to image_tag("logo.png", size: "100x32"), user_session_path %>
     </div>
-  </nav>
 
-  <div class="">
-    <% if session[:access_token].nil? %>
 
-    <% elsif @recent_pics %>
-    <% @recent_pics.each do |pic| %>
-      <%= image_tag pic.images.thumbnail.url class: "instagram_image" %>
-    <% end %>
-    <% end %>
-  </div>
+    <div class="dropdown">
+      <button class="dropbtn">User</button>
+        <div class="dropdown-content">
+          <%= link_to "New Pic", new_pin_path %>
+          <%= link_to "Account", pins_path %>
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+        </div>
+    </div>
+   </div>
+ </nav>
+ <% else %>
+ <!-- <%= image_tag "bg.jpg", class: "center-block"%> -->
+</div>
+ <% end %>
+
 
 <div class="container">
+  <div class="col-lg-3.col-md-3.col-sm-3.col-xs-6">
+    <div class="row imagetiles">
+      <% if session[:access_token].nil? %>
+      <% elsif @recent_pics %>
+        <% @recent_pics.each do |pic| %>
+          <%= image_tag pic.images.thumbnail.url, size: "135x135", class:"instagram_image" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
+
+<div class="container" id="login">
     <% flash.each do |name,msg| %>
     <%= content_tag(:div,msg,class: "alert alert-info") %>
+    <!-- <#%= image_tag "sicpic.png", size: "200x172", class: "center-block"%> -->
     <% end %>
     <%= yield %>
 </div>

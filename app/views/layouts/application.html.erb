@@ -4,11 +4,19 @@
    <title>SicPic</title>
    <%= csrf_meta_tags %>
    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <%= stylesheet_link_tag 'lightbox' %>
    <%= stylesheet_link_tag   'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+   <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
  </head>
-
- <body>
+<% unless user_signed_in?%>
+  <body style="background-image: url('<%= asset_path "bg.jpg"%>');">
+<% else %>
+  <body style="background-color: white;">
+<% end %>
 
    <% if user_signed_in? %>
    <nav class="navbar navbar-default navbar-fixed-top">
@@ -28,10 +36,10 @@
     </div>
    </div>
  </nav>
- <% else %>
+
  <!-- <%= image_tag "bg.jpg", class: "center-block"%> -->
 </div>
- <% end %>
+<% end %>
 
 
 <div class="container">
@@ -39,19 +47,14 @@
     <div class="row imagetiles">
       <% if session[:access_token].nil? %>
       <% elsif @recent_pics %>
-        <% @recent_pics.each do |pic| %>
-          <%= image_tag pic.images.thumbnail.url, size: "135x135", class:"instagram_image" %>
+        <% @recent_pics.each_with_index do |pic, inx| %>
+          <%= link_to (image_tag pic.images.thumbnail.url, class:"instagram_image"), pic.images.standard_resolution.url, data: {lightbox:"example-#{inx}"} %>
         <% end %>
       <% end %>
     </div>
   </div>
 </div>
 
-<div id="myModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
-  <div id="caption"></div>
-</div>
 
 <div class="container" id="login">
     <% flash.each do |name,msg| %>
@@ -60,6 +63,9 @@
     <% end %>
     <%= yield %>
 </div>
+
+
+<%= javascript_include_tag 'lightbox' %>
 
   </body>
 </html>

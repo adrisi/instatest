@@ -4,7 +4,6 @@
    <title>SicPic</title>
    <%= csrf_meta_tags %>
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <%= stylesheet_link_tag 'lightbox' %>
    <%= stylesheet_link_tag   'application', media: 'all', 'data-turbolinks-track': 'reload' %>
    <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -48,7 +47,7 @@
       <% if session[:access_token].nil? %>
       <% elsif @recent_pics %>
         <% @recent_pics.each_with_index do |pic, inx| %>
-          <%= link_to (image_tag pic.images.thumbnail.url, class:"instagram_image"), pic.images.standard_resolution.url, data: {lightbox:"example-#{inx}"} %>
+          <%= link_to (image_tag pic.images.thumbnail.url, class:"instagram_image col-xs-4"), pic.images.standard_resolution.url, data: {lightbox:"example-#{inx}"} %>
         <% end %>
       <% end %>
     </div>
@@ -58,14 +57,14 @@
 
 <div class="container" id="login">
     <% flash.each do |name,msg| %>
-    <%= content_tag(:div,msg,class: "alert alert-info") %>
+    <!-- <#%= content_tag(:div,msg,class: "alert alert-info") %> -->
     <!-- <#%= image_tag "sicpic.png", size: "200x172", class: "center-block"%> -->
     <% end %>
     <%= yield %>
 </div>
 
 
-<%= javascript_include_tag 'lightbox' %>
+<% javascript_include_tag 'lightbox' %>
 
   </body>
 </html>

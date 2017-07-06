@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   require "instagram"
   require 'uri'
-  CALLBACK_URL = URI.encode("http://localhost:3000/oauth/callback")
+  CALLBACK_URL = URI.encode("https://sicpic.herokuapp.com/oauth/callback")
 
   def index
     # @instagram_connect_url = "https://api.instagram.com/oauth/authorize/?client_id=9104499421d54fd6bf4560ff2817f12d&redirect_uri=#{CALLBACK_URL}&response_type=token"
